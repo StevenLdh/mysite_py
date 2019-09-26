@@ -3,8 +3,11 @@ import datetime
 from django.shortcuts import render_to_response
 from django.db import connection
 from mysite.models import Slideshow
+import json
 
 def index(request):
+
+    '''
     cursor = connection.cursor()
     result = cursor.execute("select * from bas_account")
     # 获取所有记录列表
@@ -17,7 +20,10 @@ def index(request):
         income = row[4]
         # 打印结果
         print("name=%s,lname=%s,age=%s,sex=%s,income=%s", fname, lname, age, sex, income)
-    insert()
+    '''
+
+    # insert()
+    query()
     return render_to_response('index.html', {'title': 'Hello World', 'message': datetime.datetime.now()})
 
 
@@ -32,6 +38,21 @@ def insert():
         slideshow.Slideshow_title = '图片名称'
         # 插入数据
         slideshow.save()
+
+
+def query():
+    slideshowlist = Slideshow.objects.filter(Slideshow_img_url='http://www.baidu.com')
+    for item in slideshowlist:
+        print(json.dumps(item, default=obj_2_json))
+
+
+def obj_2_json(obj):
+    return {
+        "id": obj.id,
+        "Slideshow_img_url": obj.Slideshow_img_url,
+        "Slideshow_url": obj.Slideshow_url,
+        "Slideshow_title": obj.Slideshow_title
+    }
 
 
 def sayhello(request):

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*-coding:utf-8-*-
 
-
 __author__ = 'Steven'
 from django.db import models
 
